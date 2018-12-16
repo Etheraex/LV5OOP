@@ -44,11 +44,6 @@ public:
         return number;
         /* This will be removed in the final version */
     }
-
-    void setBase(int x){
-        base = x;
-        /* This will be removed in the final version */
-    }
 };
 
 #endif // CONVERTERLOGIC_H

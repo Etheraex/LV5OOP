@@ -7,12 +7,11 @@ Converter::Converter(QWidget *parent) :
     ui(new Ui::Converter)
 {
     ui->setupUi(this);
-    ConverterLogic::getInstance().doCommand("5");
-    ConverterLogic::getInstance().doCommand("3");
-    ConverterLogic::getInstance().doCommand("4");
-    ConverterLogic::getInstance().setBase(10);
-    ConverterLogic::getInstance().doCommand("EraseLeft");
     ConverterLogic::getInstance().doCommand("HEX");
+    ConverterLogic::getInstance().doCommand("A");
+    ConverterLogic::getInstance().doCommand("C");
+    ConverterLogic::getInstance().doCommand("5");
+    ConverterLogic::getInstance().doCommand("OCT");
     QString asd = ConverterLogic::getInstance().getNumber();
     ui->label->setText(asd);
 }

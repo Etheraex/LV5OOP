@@ -1,58 +1,5 @@
 #include "converterlogic.h"
 
-bool ConverterLogic::isNumber(QString command){
-    QString numbers =  "0123456789ABCDEF";
-    for(int i = 0;i < 16;i++)
-        if(numbers[i]==command){
-            return true;
-            break;
-        }
-    return false;
-}
-
-void ConverterLogic::changeToHex(){
-    if(base != 10)
-        anythingToDecimal();
-    decimalToAnything(16);
-    base = 16;
-}
-
-void ConverterLogic::changeToOct(){
-    if(base != 10)
-        anythingToDecimal();
-    decimalToAnything(8);
-    base = 8;
-}
-
-void ConverterLogic::changeToBin(){
-    if(base != 10)
-        anythingToDecimal();
-    if(base != 2){
-        decimalToAnything(2);
-        base = 2;
-    }
-}
-
-void ConverterLogic::changeToDec(){
-    if(base!=10)
-        anythingToDecimal();
-    base = 10;
-}
-
-void ConverterLogic::eraseLeft(){
-    QString tmp = "";
-    for(int i = 1;i<number.length();i++)
-        tmp+=number[i];
-    number = tmp;
-}
-
-void ConverterLogic::eraseRight(){
-    QString tmp = "";
-    for(int i = 0;i<number.length()-1;i++)
-        tmp+=number[i];
-    number = tmp;
-}
-
 void ConverterLogic::doCommand(QString command){
     if(command == "CLEAR")
         clear();
@@ -70,6 +17,63 @@ void ConverterLogic::doCommand(QString command){
         eraseLeft();
     else if(command == "EraseRight")
         eraseRight();
+}
+
+bool ConverterLogic::isNumber(QString command){
+    QString numbers =  "0123456789ABCDEF";
+    for(int i = 0;i < 16;i++)
+        if(numbers[i]==command){
+            return true;
+            break;
+        }
+    return false;
+}
+
+void ConverterLogic::changeToHex(){
+    if(base != 16 && number != ""){
+        if(base != 10)
+            anythingToDecimal();
+        decimalToAnything(16);
+    }
+    base = 16;
+}
+
+void ConverterLogic::changeToOct(){
+    if(base!=8 && number != ""){
+        if(base != 10)
+            anythingToDecimal();
+        decimalToAnything(8);
+    }
+    base = 8;
+}
+
+void ConverterLogic::changeToBin(){
+    if(base != 2 && number != ""){
+        if(base != 10)
+            anythingToDecimal();
+        decimalToAnything(2);
+    }
+    base = 2;
+}
+
+void ConverterLogic::changeToDec(){
+    if(base!=10 && number != "")
+        anythingToDecimal();
+    base = 10;
+}
+
+void ConverterLogic::eraseLeft(){
+    QString tmp = "";
+    for(int i = 1;i<number.length();i++)
+        tmp+=number[i];
+    number = tmp;
+}
+
+void ConverterLogic::eraseRight(){
+    QString tmp = "";
+    for(int i = 0;i<number.length()-1;i++)
+        tmp+=number[i];
+    number = tmp;
 }
 
 int value(QString c){
