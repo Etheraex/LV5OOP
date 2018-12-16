@@ -1,7 +1,7 @@
 #ifndef CONVERTERLOGIC_H
 #define CONVERTERLOGIC_H
 #include <QApplication>
-#include <QMessageBox>
+#include <math.h>
 
 class ConverterLogic : public QObject {
 private:
@@ -9,97 +9,46 @@ private:
     QString number;
 
 private:
-    void clear(){
-        number = "";
-    }
 
-    bool isNumber(QString command){
-        QString numbers[] = {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"};
-        for(int i = 0;i < 16;i++)
-            if(numbers[i]==command){
-                return true;
-                break;
-            }
-        return false;
-    }
+    inline void clear(){ number = ""; }
 
-    void appendNumber(QString command){
-        number += command;
-    }
+    inline void appendNumber(QString command){ number += command; }
 
-    void changeToHex(){
-        /*
-         * Check the current base and convert to hexadecimal
-        */
-        base = 16;
-    }
+    bool isNumber(QString command);
 
-    void changeToOct(){
-        /*
-         * Check current base and convert to octal
-        */
-        base = 8;
-    }
+    void changeToHex();
 
-    void changeToBin(){
-        /*
-         * Check current base and convert to binary
-        */
-        base = 2;
-    }
+    void changeToOct();
 
-    void changeToDec(){
-        /*
-         * Check current base and convert to decimal
-        */
-        base = 10;
-    }
+    void changeToBin();
 
-    void eraseLeft(){
-        /*
-         * TODO
-        */
-    }
+    void changeToDec();
 
-    void eraseRight(){
-        /*
-         * TODO
-        */
-    }
+    void eraseLeft();
 
+    void eraseRight();
+
+    void anythingToDecimal();
+
+    void decimalToAnything(int newBase);
 
 public:
-    void doCommand(QString command){
-        if(command == "CLEAR")
-            clear();
-        else if(isNumber(command))
-            appendNumber(command);
-        else if(command == "2")
-            changeToBin();
-        else if(command == "8")
-            changeToOct();
-        else if(command == "10")
-            changeToDec();
-        else if(command == "16")
-            changeToHex();
-        else if(command == "EraseLeft")
-            eraseLeft();
-        else if(command == "EraseRight")
-            eraseRight();
-    }
+    void doCommand(QString command);
 
     static ConverterLogic& getInstance(){
-                static ConverterLogic instance;
-                return instance;
-    }
-    int getBase(){
-        return base;
+        static ConverterLogic instance;
+        return instance;
     }
 
     QString getNumber(){
         return number;
+        /* This will be removed in the final version */
     }
 
+    void setBase(int x){
+        base = x;
+        /* This will be removed in the final version */
+    }
 };
 
 #endif // CONVERTERLOGIC_H

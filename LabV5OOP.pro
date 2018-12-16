@@ -25,7 +25,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        converter.cpp
+        converter.cpp \
+    converterlogic.cpp
 
 HEADERS += \
         converter.h \
