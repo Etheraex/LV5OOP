@@ -4,15 +4,20 @@
 #include <math.h>
 
 class ConverterLogic : public QObject {
+
+    Q_OBJECT
+
 private:
     int base;
     QString number;
+public:
+    explicit ConverterLogic(QObject *parent = 0);
 
 private:
 
-    inline void clear(){ number = ""; }
+    inline void clear(){ number = ""; emit numberChanged(); }
 
-    inline void appendNumber(QString command){ number += command; }
+    inline void appendNumber(QString command){ number += command; emit numberChanged(); }
 
     bool isNumber(QString command);
 
@@ -32,17 +37,15 @@ private:
 
     void decimalToAnything(int newBase);
 
+signals:
+    void numberChanged();
+    void numberBaseChanged(int);
+
 public:
     void doCommand(QString command);
 
-    static ConverterLogic& getInstance(){
-        static ConverterLogic instance;
-        return instance;
-    }
-
     QString getNumber(){
         return number;
-        /* This will be removed in the final version */
     }
 };
 

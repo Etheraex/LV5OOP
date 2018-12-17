@@ -1,5 +1,10 @@
 #include "converterlogic.h"
 
+ConverterLogic::ConverterLogic(QObject * parent) : QObject(parent)
+{
+    number = "";
+}
+
 void ConverterLogic::doCommand(QString command){
     if(command == "CLEAR")
         clear();
@@ -13,9 +18,9 @@ void ConverterLogic::doCommand(QString command){
         changeToDec();
     else if(command == "HEX")
         changeToHex();
-    else if(command == "EraseLeft")
+    else if(command == "→")
         eraseLeft();
-    else if(command == "EraseRight")
+    else if(command == "←")
         eraseRight();
 }
 
@@ -36,6 +41,7 @@ void ConverterLogic::changeToHex(){
         decimalToAnything(16);
     }
     base = 16;
+    emit numberBaseChanged(16);
 }
 
 void ConverterLogic::changeToOct(){
@@ -45,6 +51,7 @@ void ConverterLogic::changeToOct(){
         decimalToAnything(8);
     }
     base = 8;
+    emit numberBaseChanged(8);
 }
 
 void ConverterLogic::changeToBin(){
@@ -54,12 +61,14 @@ void ConverterLogic::changeToBin(){
         decimalToAnything(2);
     }
     base = 2;
+    emit numberBaseChanged(2);
 }
 
 void ConverterLogic::changeToDec(){
     if(base!=10 && number != "")
         anythingToDecimal();
     base = 10;
+    emit numberBaseChanged(10);
 }
 
 void ConverterLogic::eraseLeft(){
@@ -67,6 +76,7 @@ void ConverterLogic::eraseLeft(){
     for(int i = 1;i<number.length();i++)
         tmp+=number[i];
     number = tmp;
+    emit numberChanged();
 }
 
 void ConverterLogic::eraseRight(){
@@ -74,6 +84,7 @@ void ConverterLogic::eraseRight(){
     for(int i = 0;i<number.length()-1;i++)
         tmp+=number[i];
     number = tmp;
+    emit numberChanged();
 }
 
 int value(QString c){
