@@ -5,6 +5,16 @@ ConverterLogic::ConverterLogic(QObject * parent) : QObject(parent)
     number = "";
 }
 
+void ConverterLogic::appendNumber(QString command){
+    if(command == "0" && number.length() == 1 && number[0]=="0")
+        return;
+    if(number.length() == 1 && number[0]=="0")
+        number = command;
+    else
+        number += command;
+    emit numberChanged();
+}
+
 void ConverterLogic::doCommand(QString command){
     if(command == "CLEAR")
         clear();

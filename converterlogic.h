@@ -17,7 +17,7 @@ private:
 
     inline void clear(){ number = ""; emit numberChanged(); }
 
-    inline void appendNumber(QString command){ number += command; emit numberChanged(); }
+    void appendNumber(QString command);
 
     bool isNumber(QString command);
 
